@@ -12,15 +12,17 @@ const COLORS = 'https://nt-cdn.s3.amazonaws.com/colors.json';
  */
 const fetchColors = ({ name, hex, compName, compHex }) => {
 
-  // Gather the arguments and reduce to the provided criterion
-  // (Spec says to assume that only one value is provided, so I'm not checking for multiple criteria)
+  // Gather the arguments and reduce to the provided criterion 
+  /* Note: I was going to use the spread operator here to avoid hard-coding the key names, but as I mentioned on Slack, 
+  any use of "..." (including samples from the es6-primer) with the provided HW1 starter files gives me an Unexpected token error, 
+  even though the same code runs in other contexts. */
   const criteria = { "name": name, "hex": hex, "compName": compName, "compHex": compHex };
   for (let key in criteria) {
     if (criteria[key] === undefined) {
       delete criteria[key];
     }
   }
-  const criterion = Object.keys(criteria);
+  const criterion = Object.keys(criteria)[0];     // Spec says we can assume only 1 criterion, but just to be safe, pull the first
   const value = criteria[criterion];
 
   // Helper function for applying our search criteria
